@@ -6,6 +6,11 @@
 package lojatelefonia.ui.GUI;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.JInternalFrame;
 
 /**
@@ -20,6 +25,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -31,7 +37,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktop = new javax.swing.JDesktopPane();
+        desktop = new javax.swing.JDesktopPane(){
+            private Image image;
+            {
+                try {
+                    image = ImageIO.read(new URL("http://i.imgur.com/dE2ishu.jpg"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         telaPrincipalMenu = new javax.swing.JMenuBar();
         menuClientes = new javax.swing.JMenu();
         menuItemClientes = new javax.swing.JMenuItem();
@@ -46,7 +67,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         desktop.setMinimumSize(new java.awt.Dimension(800, 600));
         desktop.setName(""); // NOI18N
-        desktop.setPreferredSize(new java.awt.Dimension(800, 600));
+        desktop.setPreferredSize(new java.awt.Dimension(1600, 1000));
 
         menuClientes.setText("Clientes");
 
