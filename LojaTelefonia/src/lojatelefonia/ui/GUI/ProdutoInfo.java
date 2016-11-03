@@ -30,7 +30,7 @@ public class ProdutoInfo extends javax.swing.JInternalFrame {
         initComponents();
         mostrarListaProduto();
     }
-    
+
     //Testar conexao com o banco de dados
     public Connection getConnection() {
         Connection con;
@@ -42,7 +42,7 @@ public class ProdutoInfo extends javax.swing.JInternalFrame {
             return null;
         }
     }
-    
+
     //Pegar tabela de produtos
     public ArrayList<Produto> getListaProdutos() {
         ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
@@ -141,7 +141,7 @@ public class ProdutoInfo extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Sistema Loja Produtos");
+        setTitle("Gerenciamento de Produtos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Tabela de Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -401,16 +401,23 @@ public class ProdutoInfo extends javax.swing.JInternalFrame {
 
     //Botao deletar item da tabela
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        String query = "DELETE FROM produtos WHERE id = " + txtProdutoID.getText();
-        executarQuery(query, "Deletado");
-        txtProdutoID.setText("");
-        txtProdutoNome.setText("");
-        txtProdutoDesc.setText("");
-        txtProdutoMarca.setText("");
-        txtProdutoSerie.setText("");
-        txtProdutoFab.setText("");
-        txtProdutoQtd.setText("");
-        txtProdutoValor.setText("");
+        if (jTableProdutos.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum produto selecionado.",
+                    "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            String query = "DELETE FROM produtos WHERE id = " + txtProdutoID.getText();
+            executarQuery(query, "Deletado");
+            txtProdutoID.setText("");
+            txtProdutoNome.setText("");
+            txtProdutoDesc.setText("");
+            txtProdutoMarca.setText("");
+            txtProdutoSerie.setText("");
+            txtProdutoFab.setText("");
+            txtProdutoQtd.setText("");
+            txtProdutoValor.setText("");
+        }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     //Botao inserir item da tablea

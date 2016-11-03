@@ -79,10 +79,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.setPreferredSize(new java.awt.Dimension(1600, 1000));
 
         menuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/username.png"))); // NOI18N
-        menuClientes.setText("Clientes");
+        menuClientes.setText("Cliente");
 
         menuItemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/username.png"))); // NOI18N
-        menuItemClientes.setText("Clientes");
+        menuItemClientes.setText("Gerenciar Clientes");
         menuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemClientesActionPerformed(evt);
@@ -93,10 +93,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaPrincipalMenu.add(menuClientes);
 
         menuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/box_icon.png"))); // NOI18N
-        menuProdutos.setText("Produtos");
+        menuProdutos.setText("Produto");
 
         menuItemProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/box_icon.png"))); // NOI18N
-        menuItemProdutos.setText("Produtos");
+        menuItemProdutos.setText("Gerenciar Produtos");
         menuItemProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemProdutosActionPerformed(evt);
