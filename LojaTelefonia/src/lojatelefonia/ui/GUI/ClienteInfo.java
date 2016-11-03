@@ -361,13 +361,20 @@ public class ClienteInfo extends javax.swing.JInternalFrame {
 
     //Deletar item da tabela
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        String query = "DELETE FROM clientes WHERE id = " + txtClienteID.getText();
-        executarQuery(query, "Deletado");
-        txtClienteID.setText("");
-        txtClienteNome.setText("");
-        txtClienteNasc.setText("");
-        txtClienteTel.setText("");
-        fTxtClienteCPF.setText("");
+        if (jTableClientes.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Nenhum cliente selecionado.",
+                    "ERRO",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            String query = "DELETE FROM clientes WHERE id = " + txtClienteID.getText();
+            executarQuery(query, "Deletado");
+            txtClienteID.setText("");
+            txtClienteNome.setText("");
+            txtClienteNasc.setText("");
+            txtClienteTel.setText("");
+            fTxtClienteCPF.setText("");
+        }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     //Pesquisar item na tabela
