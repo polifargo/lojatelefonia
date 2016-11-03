@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -26,6 +29,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro no LookAndFeel");
+        }
     }
 
     /**
@@ -69,8 +78,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.setName(""); // NOI18N
         desktop.setPreferredSize(new java.awt.Dimension(1600, 1000));
 
+        menuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/username.png"))); // NOI18N
         menuClientes.setText("Clientes");
 
+        menuItemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/username.png"))); // NOI18N
         menuItemClientes.setText("Clientes");
         menuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,8 +92,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         telaPrincipalMenu.add(menuClientes);
 
+        menuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/box_icon.png"))); // NOI18N
         menuProdutos.setText("Produtos");
 
+        menuItemProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/box_icon.png"))); // NOI18N
         menuItemProdutos.setText("Produtos");
         menuItemProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,8 +106,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         telaPrincipalMenu.add(menuProdutos);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/icon_carrinho_add.png"))); // NOI18N
         jMenu1.setText("Venda");
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/icon_carrinho_add.png"))); // NOI18N
         jMenuItem1.setText("Realizar Venda");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +130,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(desktop, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
