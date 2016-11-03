@@ -411,6 +411,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Compra realizada com sucesso!");
             String query = "DELETE FROM venda ";
             executarQueryNOMSG(query, null);
+            row2.clear();
         }
     }//GEN-LAST:event_buttonVenderActionPerformed
 
@@ -428,6 +429,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
             String query = "DELETE FROM venda";
             executarQueryNOMSG(query, null);
         }
+        row2.clear();
     }//GEN-LAST:event_formInternalFrameClosed
 
     private void txtPesquisaProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaProdutoKeyReleased
