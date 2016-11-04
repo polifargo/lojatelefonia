@@ -229,6 +229,12 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Número Série:");
 
+        txtProdutoSerie.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProdutoSerieKeyTyped(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("ID:");
 
@@ -464,6 +470,12 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void txtProdutoSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdutoSerieKeyTyped
+        if (txtProdutoSerie.getText().length() >= 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtProdutoSerieKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
