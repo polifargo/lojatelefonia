@@ -1,7 +1,6 @@
-package lojatelefonia.ui.GUI;
+package lojatelefonia.ui.clientes;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -10,38 +9,29 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import lojatelefonia.db.utils.ConnectionUtils;
 import lojatelefonia.ui.atributos.Cliente;
 
 /**
  *
  * @author Matheus
  */
-public class ClienteInfo extends javax.swing.JInternalFrame {
+public class ClienteTela extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ClienteInfo
      */
-    public ClienteInfo() {
+    public ClienteTela() {
         initComponents();
         mostrarListaCliente();
     }
 
     //Testar conexao com o banco de dados
-    public Connection getConnection() {
-        Connection con;
-        try {
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/telefonia", "root", "root");
-            return con;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     //Pegar tabela de clientes
     public ArrayList<Cliente> getListaClientes() {
         ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-        Connection connection = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
 
         String query = "SELECT * FROM clientes";
         Statement st;
@@ -80,10 +70,11 @@ public class ClienteInfo extends javax.swing.JInternalFrame {
 
     // EXECUTAR SQL QUERY
     public void executarQuery(String query, String message) {
-        Connection con = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
         Statement st;
         try {
-            st = con.createStatement();
+            st = connection.createStatement();
             if (st.executeUpdate(query) == 1) {
                 //refresh
                 DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();

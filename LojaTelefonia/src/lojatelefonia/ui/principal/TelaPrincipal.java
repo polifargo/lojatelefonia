@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lojatelefonia.ui.GUI;
+package lojatelefonia.ui.principal;
 
+import lojatelefonia.ui.venda.VendaTela;
+import lojatelefonia.ui.produtos.ProdutoTela;
+import lojatelefonia.ui.clientes.ClienteTela;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -22,9 +25,9 @@ import javax.swing.UIManager;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    ClienteInfo clienteInfo = null;
-    ProdutoInfo produtoInfo = null;
-    RealizarVenda realizarVenda = null;
+    ClienteTela clienteInfo = null;
+    ProdutoTela produtoInfo = null;
+    VendaTela realizarVenda = null;
 
     public TelaPrincipal() {
         initComponents();
@@ -138,7 +141,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClientesActionPerformed
         if (clienteInfo == null || !clienteInfo.isDisplayable()) {
-            clienteInfo = new ClienteInfo();
+            clienteInfo = new ClienteTela();
             desktop.add(clienteInfo);
             this.openFrameInCenter(clienteInfo);
         }
@@ -147,7 +150,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuItemProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProdutosActionPerformed
         if (produtoInfo == null || !produtoInfo.isDisplayable()) {
-            produtoInfo = new ProdutoInfo();
+            produtoInfo = new ProdutoTela();
             desktop.add(produtoInfo);
             this.openFrameInCenter(produtoInfo);
         }
@@ -156,7 +159,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (realizarVenda == null || !realizarVenda.isDisplayable()) {
-            realizarVenda = new RealizarVenda();
+            realizarVenda = new VendaTela();
             desktop.add(realizarVenda);
             this.openFrameInCenter(realizarVenda);
         }
