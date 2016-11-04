@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lojatelefonia.ui.GUI;
+package lojatelefonia.ui.venda;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import lojatelefonia.db.utils.ConnectionUtils;
 import lojatelefonia.ui.atributos.Cliente;
 import lojatelefonia.ui.atributos.ModeloVenda;
 import lojatelefonia.ui.atributos.Produto;
@@ -24,7 +24,7 @@ import lojatelefonia.ui.atributos.Produto;
  *
  * @author Matheus
  */
-public class RealizarVenda extends javax.swing.JInternalFrame {
+public class VendaTela extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form RealizarVenda
@@ -32,8 +32,8 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
     //Array para retornar produtos ao estoque
     public List<Integer> row2 = new ArrayList<>();
     int cont = 0;
-
-    public RealizarVenda() {
+    
+    public VendaTela() {
         initComponents();
         mostrarListaProduto();
         mostrarListaVenda();
@@ -525,8 +525,12 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
     private void buttonVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVenderActionPerformed
         if (jTableVenda.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(null, "O carrinho esta vazio.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else if (txtClienteFinal.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Cliente nao selecionado", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Compra realizada com sucesso!");
+            txtClienteFinal.setText("");
+            txtValorFinal.setText("");
             String query = "DELETE FROM venda ";
             executarQueryNOMSG(query, null);
             row2.clear();
@@ -603,27 +607,16 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtPesquisaClienteKeyReleased
 
-    //Testar conexao com banco de dados
-    public Connection getConnection() {
-        Connection con;
-        try {
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/telefonia", "root", "root");
-            return con;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     //Pegar tabela cliente
     public ArrayList<Cliente> getListaClientes() {
         ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-        Connection connection = getConnection();
-
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
+        
         String query = "SELECT * FROM clientes";
         Statement st;
         ResultSet rs;
-
+        
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
@@ -650,7 +643,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
             row[2] = lista.get(i).getNasc();
             row[3] = lista.get(i).getTelefone();
             row[4] = lista.get(i).getCpf();
-
+            
             model.addRow(row);
         }
     }
@@ -658,12 +651,13 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
     //Pegar tabela de produto
     public ArrayList<Produto> getListaProdutos() {
         ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
-        Connection connection = getConnection();
-
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
+        
         String query = "SELECT * FROM produtos";
         Statement st;
         ResultSet rs;
-
+        
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
@@ -694,7 +688,7 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
             row[5] = lista.get(i).getFab();
             row[6] = lista.get(i).getQtd();
             row[7] = lista.get(i).getValor();
-
+            
             model.addRow(row);
         }
     }
@@ -702,12 +696,13 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
     //Pegar tabela de venda
     public ArrayList<ModeloVenda> getListaVendas() {
         ArrayList<ModeloVenda> listaVendas = new ArrayList<ModeloVenda>();
-        Connection connection = getConnection();
-
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
+        
         String query = "SELECT * FROM venda";
         Statement st;
         ResultSet rs;
-
+        
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
@@ -733,23 +728,24 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
             row[1] = lista.get(i).getValorVenda();
             row[2] = lista.get(i).getProduto();
             row[3] = lista.get(i).getQtd();
-
+            
             model.addRow(row);
         }
     }
 
     //Executar query de venda com mensagem
     public void executarQueryVenda(String query, String message) {
-        Connection con = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
         Statement st;
         try {
-            st = con.createStatement();
+            st = connection.createStatement();
             if (st.executeUpdate(query) == 1) {
                 //refresh
                 DefaultTableModel model = (DefaultTableModel) jTableVenda.getModel();
                 model.setRowCount(0);
                 mostrarListaVenda();
-
+                
                 JOptionPane.showMessageDialog(null, "Data " + message + " sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
@@ -759,12 +755,13 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         }
     }
 
-    //Executar query de produto sem mensagem de sucesso
+    //Executar query de produto sem mensagem
     public void executarQuery(String query, String message) {
-        Connection con = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
         Statement st;
         try {
-            st = con.createStatement();
+            st = connection.createStatement();
             if (st.executeUpdate(query) == 1) {
                 //refresh
                 DefaultTableModel model = (DefaultTableModel) jTableProdutos.getModel();
@@ -778,12 +775,13 @@ public class RealizarVenda extends javax.swing.JInternalFrame {
         }
     }
 
-    //Executar query de produto sem mensagem de sucesso
+    //Executar query de produto sem mensagem
     public void executarQueryNOMSG(String query, String message) {
-        Connection con = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
         Statement st;
         try {
-            st = con.createStatement();
+            st = connection.createStatement();
             if (st.executeUpdate(query) == 1) {
                 //refresh
                 DefaultTableModel model = (DefaultTableModel) jTableVenda.getModel();

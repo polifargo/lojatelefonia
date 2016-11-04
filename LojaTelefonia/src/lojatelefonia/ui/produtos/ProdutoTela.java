@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lojatelefonia.ui.GUI;
+package lojatelefonia.ui.produtos;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -15,38 +14,28 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import lojatelefonia.db.utils.ConnectionUtils;
 import lojatelefonia.ui.atributos.Produto;
 
 /**
  *
  * @author Matheus
  */
-public class ProdutoInfo extends javax.swing.JInternalFrame {
+public class ProdutoTela extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ProdutoInfo
      */
-    public ProdutoInfo() {
+    public ProdutoTela() {
         initComponents();
         mostrarListaProduto();
-    }
-
-    //Testar conexao com o banco de dados
-    public Connection getConnection() {
-        Connection con;
-        try {
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/telefonia", "root", "root");
-            return con;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     //Pegar tabela de produtos
     public ArrayList<Produto> getListaProdutos() {
         ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
-        Connection connection = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
 
         String query = "SELECT * FROM produtos";
         Statement st;
@@ -89,10 +78,11 @@ public class ProdutoInfo extends javax.swing.JInternalFrame {
 
     // EXECUTAR SQL QUERY
     public void executarQuery(String query, String message) {
-        Connection con = getConnection();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
         Statement st;
         try {
-            st = con.createStatement();
+            st = connection.createStatement();
             if (st.executeUpdate(query) == 1) {
                 //refresh
                 DefaultTableModel model = (DefaultTableModel) jTableProdutos.getModel();
