@@ -117,7 +117,6 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         txtProdutoMarca = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtProdutoSerie = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtProdutoQtd = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -127,6 +126,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         buttonUpdate = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        txtProdutoSerie = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -229,12 +229,6 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Número Série:");
 
-        txtProdutoSerie.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtProdutoSerieKeyTyped(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("ID:");
 
@@ -249,7 +243,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        txtProdutoValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        txtProdutoValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Quantidade:");
@@ -264,6 +258,12 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Data Fabricação:");
+
+        try {
+            txtProdutoSerie.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -283,7 +283,6 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProdutoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProdutoDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtProdutoFab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
@@ -294,7 +293,11 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                             .addComponent(txtProdutoID, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(97, 115, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtProdutoNome)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtProdutoNome)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(txtProdutoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -475,12 +478,6 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
-    private void txtProdutoSerieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProdutoSerieKeyTyped
-        if (txtProdutoSerie.getText().length() >= 4) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtProdutoSerieKeyTyped
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDelete;
@@ -506,7 +503,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtProdutoMarca;
     private javax.swing.JTextField txtProdutoNome;
     private javax.swing.JTextField txtProdutoQtd;
-    private javax.swing.JTextField txtProdutoSerie;
+    private javax.swing.JFormattedTextField txtProdutoSerie;
     private javax.swing.JFormattedTextField txtProdutoValor;
     // End of variables declaration//GEN-END:variables
 }

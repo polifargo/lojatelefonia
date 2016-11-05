@@ -232,11 +232,6 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        fTxtClienteCPF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fTxtClienteCPFKeyTyped(evt);
-            }
-        });
 
         buttonInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/Button-Add-icon2.png"))); // NOI18N
         buttonInserir.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -414,13 +409,6 @@ public class ClienteTela extends javax.swing.JInternalFrame {
             executarQuery(query, "Inserido");
         }
     }//GEN-LAST:event_buttonInserirActionPerformed
-
-    //CPF apenas 11 caracteres
-    private void fTxtClienteCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fTxtClienteCPFKeyTyped
-        if (fTxtClienteCPF.getText().length() >= 11) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_fTxtClienteCPFKeyTyped
 
     //Atualizar item da tabela
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
