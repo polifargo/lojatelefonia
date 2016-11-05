@@ -29,3 +29,12 @@ produto_fk VARCHAR(255),
 qtd_fk integer,
 PRIMARY KEY (id_venda)
 ) ;
+
+CREATE TABLE relatorio
+(
+id_venda INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+valor_total double,
+cliente VARCHAR(255),
+qtd_items integer,
+PRIMARY KEY (id_venda)
+) ;

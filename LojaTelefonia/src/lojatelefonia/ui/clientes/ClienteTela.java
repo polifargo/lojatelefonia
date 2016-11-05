@@ -213,7 +213,11 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Data de Nascimento:");
 
-        txtClienteNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yyyy"))));
+        try {
+            txtClienteNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Telefone:");
@@ -223,7 +227,11 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("CPF:");
 
-        fTxtClienteCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        try {
+            fTxtClienteCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         fTxtClienteCPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 fTxtClienteCPFKeyTyped(evt);
@@ -238,6 +246,11 @@ public class ClienteTela extends javax.swing.JInternalFrame {
             }
         });
 
+        try {
+            txtClienteTel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtClienteTel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtClienteTelKeyPressed(evt);
@@ -429,7 +442,7 @@ public class ClienteTela extends javax.swing.JInternalFrame {
     //Telefone apenas 11 caracteres
     private void txtClienteTelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteTelKeyPressed
         // TODO add your handling code here:
-        if (txtClienteTel.getText().length() >= 11) {
+        if (txtClienteTel.getText().length() >= 14) {
             evt.consume();
         }
     }//GEN-LAST:event_txtClienteTelKeyPressed
