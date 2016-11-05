@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lojatelefonia.ui.relatorio;
 
 import java.sql.Connection;
@@ -17,10 +12,6 @@ import javax.swing.table.TableRowSorter;
 import lojatelefonia.db.utils.ConnectionUtils;
 import lojatelefonia.ui.atributos.Relatorio;
 
-/**
- *
- * @author Matheus
- */
 public class RelatorioTela extends javax.swing.JInternalFrame {
 
     public RelatorioTela() {
