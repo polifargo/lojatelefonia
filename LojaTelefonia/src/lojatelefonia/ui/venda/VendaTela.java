@@ -32,7 +32,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
     //Array para retornar produtos ao estoque
     public List<Integer> row2 = new ArrayList<>();
     int cont = 0;
-    
+
     public VendaTela() {
         initComponents();
         mostrarListaProduto();
@@ -528,6 +528,11 @@ public class VendaTela extends javax.swing.JInternalFrame {
         } else if (txtClienteFinal.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Cliente nao selecionado", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
+            String query2 = "INSERT INTO relatorio(valor_total, cliente, qtd_items) VALUES ("
+                    + Double.parseDouble(txtValorFinal.getText()) + ",'"
+                    + txtClienteFinal.getText() + "',"
+                    + getQtd() + ")";
+            executarQueryNOMSG(query2, null);
             JOptionPane.showMessageDialog(this, "Compra realizada com sucesso!");
             txtClienteFinal.setText("");
             txtValorFinal.setText("");
@@ -612,11 +617,11 @@ public class VendaTela extends javax.swing.JInternalFrame {
         ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
         Connection connection = null;
         connection = ConnectionUtils.getConnection();
-        
+
         String query = "SELECT * FROM clientes";
         Statement st;
         ResultSet rs;
-        
+
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
@@ -643,7 +648,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
             row[2] = lista.get(i).getNasc();
             row[3] = lista.get(i).getTelefone();
             row[4] = lista.get(i).getCpf();
-            
+
             model.addRow(row);
         }
     }
@@ -653,11 +658,11 @@ public class VendaTela extends javax.swing.JInternalFrame {
         ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
         Connection connection = null;
         connection = ConnectionUtils.getConnection();
-        
+
         String query = "SELECT * FROM produtos";
         Statement st;
         ResultSet rs;
-        
+
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
@@ -688,7 +693,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
             row[5] = lista.get(i).getFab();
             row[6] = lista.get(i).getQtd();
             row[7] = lista.get(i).getValor();
-            
+
             model.addRow(row);
         }
     }
@@ -698,11 +703,11 @@ public class VendaTela extends javax.swing.JInternalFrame {
         ArrayList<ModeloVenda> listaVendas = new ArrayList<ModeloVenda>();
         Connection connection = null;
         connection = ConnectionUtils.getConnection();
-        
+
         String query = "SELECT * FROM venda";
         Statement st;
         ResultSet rs;
-        
+
         try {
             st = connection.createStatement();
             rs = st.executeQuery(query);
@@ -728,7 +733,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
             row[1] = lista.get(i).getValorVenda();
             row[2] = lista.get(i).getProduto();
             row[3] = lista.get(i).getQtd();
-            
+
             model.addRow(row);
         }
     }
@@ -745,7 +750,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
                 DefaultTableModel model = (DefaultTableModel) jTableVenda.getModel();
                 model.setRowCount(0);
                 mostrarListaVenda();
-                
+
                 JOptionPane.showMessageDialog(null, "Data " + message + " sucesso!");
             } else {
                 JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
@@ -801,6 +806,15 @@ public class VendaTela extends javax.swing.JInternalFrame {
         double sum = 0;
         for (int i = 0; i < rowsCount; i++) {
             sum = sum + Double.parseDouble(jTableVenda.getValueAt(i, 1).toString());
+        }
+        return sum;
+    }
+
+    public int getQtd() {
+        int rowsCount = jTableVenda.getRowCount();
+        int sum = 0;
+        for (int i = 0; i < rowsCount; i++) {
+            sum = sum + Integer.parseInt(jTableVenda.getValueAt(i, 3).toString());
         }
         return sum;
     }

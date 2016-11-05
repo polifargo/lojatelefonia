@@ -18,6 +18,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import lojatelefonia.ui.relatorio.RelatorioTela;
 
 /**
  *
@@ -28,6 +29,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     ClienteTela clienteInfo = null;
     ProdutoTela produtoInfo = null;
     VendaTela realizarVenda = null;
+    RelatorioTela relatorioInfo = null;
 
     public TelaPrincipal() {
         initComponents();
@@ -70,8 +72,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menuItemClientes = new javax.swing.JMenuItem();
         menuProdutos = new javax.swing.JMenu();
         menuItemProdutos = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        menuVenda = new javax.swing.JMenu();
+        menuRealizarVenda = new javax.swing.JMenuItem();
+        menuRelatorio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Loja Telefonia");
@@ -109,19 +112,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         telaPrincipalMenu.add(menuProdutos);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/icon_carrinho_add.png"))); // NOI18N
-        jMenu1.setText("Venda");
+        menuVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/icon_carrinho_add.png"))); // NOI18N
+        menuVenda.setText("Venda");
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/icon_carrinho_add.png"))); // NOI18N
-        jMenuItem1.setText("Realizar Venda");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuRealizarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/icon_carrinho_add.png"))); // NOI18N
+        menuRealizarVenda.setText("Realizar Venda");
+        menuRealizarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuRealizarVendaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuVenda.add(menuRealizarVenda);
 
-        telaPrincipalMenu.add(jMenu1);
+        menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lojatelefonia/ui/image/report-icon.gif"))); // NOI18N
+        menuRelatorio.setText("Relatorio de Vendas");
+        menuRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRelatorioActionPerformed(evt);
+            }
+        });
+        menuVenda.add(menuRelatorio);
+
+        telaPrincipalMenu.add(menuVenda);
 
         setJMenuBar(telaPrincipalMenu);
 
@@ -157,14 +169,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         produtoInfo.toFront();
     }//GEN-LAST:event_menuItemProdutosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuRealizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRealizarVendaActionPerformed
         if (realizarVenda == null || !realizarVenda.isDisplayable()) {
             realizarVenda = new VendaTela();
             desktop.add(realizarVenda);
             this.openFrameInCenter(realizarVenda);
         }
         realizarVenda.toFront();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuRealizarVendaActionPerformed
+
+    private void menuRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRelatorioActionPerformed
+        if (relatorioInfo == null || !relatorioInfo.isDisplayable()) {
+            relatorioInfo = new RelatorioTela();
+            desktop.add(relatorioInfo);
+            this.openFrameInCenter(relatorioInfo);
+        }
+        relatorioInfo.toFront();
+    }//GEN-LAST:event_menuRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,12 +234,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuClientes;
     private javax.swing.JMenuItem menuItemClientes;
     private javax.swing.JMenuItem menuItemProdutos;
     private javax.swing.JMenu menuProdutos;
+    private javax.swing.JMenuItem menuRealizarVenda;
+    private javax.swing.JMenuItem menuRelatorio;
+    private javax.swing.JMenu menuVenda;
     private javax.swing.JMenuBar telaPrincipalMenu;
     // End of variables declaration//GEN-END:variables
 }
