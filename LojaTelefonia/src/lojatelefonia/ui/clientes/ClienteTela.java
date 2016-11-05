@@ -12,10 +12,6 @@ import javax.swing.table.TableRowSorter;
 import lojatelefonia.db.utils.ConnectionUtils;
 import lojatelefonia.ui.atributos.Cliente;
 
-/**
- *
- * @author Matheus
- */
 public class ClienteTela extends javax.swing.JInternalFrame {
 
     /**
