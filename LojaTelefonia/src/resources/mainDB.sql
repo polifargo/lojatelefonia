@@ -4,7 +4,7 @@ id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 nome VARCHAR(255),
 nascimento VARCHAR(12),
 telefone varchar(30),
-cpf varchar(11),
+cpf varchar(14),
 CONSTRAINT primary_key PRIMARY KEY (id)
 ) ;
 
@@ -14,7 +14,7 @@ id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
 nome VARCHAR(255),
 descricao VARCHAR(255),
 marca varchar(50),
-serie varchar(5),
+serie varchar(4),
 fabricacao varchar(12),
 qtd integer,
 valor double,
