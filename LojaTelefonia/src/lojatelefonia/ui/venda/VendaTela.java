@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lojatelefonia.ui.venda;
 
 import java.sql.Connection;
@@ -20,10 +15,6 @@ import lojatelefonia.ui.atributos.Cliente;
 import lojatelefonia.ui.atributos.ModeloVenda;
 import lojatelefonia.ui.atributos.Produto;
 
-/**
- *
- * @author Matheus
- */
 public class VendaTela extends javax.swing.JInternalFrame {
 
     /**
@@ -492,7 +483,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
                         + txtProdutoQtd.getText() + ")";
                 executarQueryVenda(query, "Adicionado");
                 String query2 = "UPDATE produtos SET qtd = " + model.getValueAt(i, 6) + -Integer.parseInt(txtProdutoQtd.getText()) + "WHERE id = " + txtProdutoID.getText();
-                executarQuery(query2, null);
+                executarQuery(query2, "Adicionado");
             }
             txtValorFinal.setText(Double.toString(getSum()));
         }
@@ -514,7 +505,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
             executarQuery(query3, null);
             if (Integer.parseInt(model.getValueAt(i, 3).toString()) <= 0) {
                 String query = "DELETE FROM venda WHERE id_venda = " + txtVendaID.getText();
-                executarQueryNOMSG(query, null);
+                executarQueryNOMSG(query, "Produto excluido do carrinho");
             }
             txtValorFinal.setText(Double.toString(getSum()));
         }
@@ -536,7 +527,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
             txtClienteFinal.setText("");
             txtValorFinal.setText("");
             String query = "DELETE FROM venda ";
-            executarQueryNOMSG(query, null);
+            executarQueryNOMSG(query, "concluida");
             row2.clear();
         }
     }//GEN-LAST:event_buttonVenderActionPerformed
@@ -750,9 +741,9 @@ public class VendaTela extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 mostrarListaVenda();
 
-                JOptionPane.showMessageDialog(null, "Data " + message + " sucesso!");
+                JOptionPane.showMessageDialog(null, message);
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
+                JOptionPane.showMessageDialog(null, message);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -772,14 +763,14 @@ public class VendaTela extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 mostrarListaProduto();
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
+                JOptionPane.showMessageDialog(null, message);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    //Executar query de produto sem mensagem
+    //Executar query do carrinho sem mensagem
     public void executarQueryNOMSG(String query, String message) {
         Connection connection = null;
         connection = ConnectionUtils.getConnection();
@@ -792,7 +783,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 mostrarListaVenda();
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
+                JOptionPane.showMessageDialog(null, message);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

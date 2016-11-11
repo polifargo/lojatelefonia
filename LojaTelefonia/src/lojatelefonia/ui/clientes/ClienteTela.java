@@ -12,10 +12,6 @@ import javax.swing.table.TableRowSorter;
 import lojatelefonia.db.utils.ConnectionUtils;
 import lojatelefonia.ui.atributos.Cliente;
 
-/**
- *
- * @author Matheus
- */
 public class ClienteTela extends javax.swing.JInternalFrame {
 
     /**
@@ -81,9 +77,9 @@ public class ClienteTela extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 mostrarListaCliente();
 
-                JOptionPane.showMessageDialog(null, "Data " + message + " sucesso!");
+                JOptionPane.showMessageDialog(null, "Cliente " + message);
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
+                JOptionPane.showMessageDialog(null, "Erro");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -361,7 +357,7 @@ public class ClienteTela extends javax.swing.JInternalFrame {
                     JOptionPane.ERROR_MESSAGE);
         } else {
             String query = "DELETE FROM clientes WHERE id = " + txtClienteID.getText();
-            executarQuery(query, "Deletado");
+            executarQuery(query, "deletado");
             txtClienteID.setText("");
             txtClienteNome.setText("");
             txtClienteNasc.setText("");
@@ -399,7 +395,7 @@ public class ClienteTela extends javax.swing.JInternalFrame {
                     + "'" + txtClienteTel.getText() + "',"
                     + "'" + fTxtClienteCPF.getText()
                     + "')";
-            executarQuery(query, "Inserido");
+            executarQuery(query, "cadastrado");
         }
     }//GEN-LAST:event_buttonInserirActionPerformed
 
@@ -416,7 +412,7 @@ public class ClienteTela extends javax.swing.JInternalFrame {
                     + "nascimento = '" + txtClienteNasc.getText() + "',"
                     + "telefone = '" + txtClienteTel.getText() + "',"
                     + "cpf = '" + fTxtClienteCPF.getText() + "' WHERE id = " + txtClienteID.getText();
-            executarQuery(query, "Atualizado");
+            executarQuery(query, "atualizado");
         }
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
