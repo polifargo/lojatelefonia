@@ -80,9 +80,9 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 mostrarListaProduto();
 
-                JOptionPane.showMessageDialog(null, "Data " + message + " sucesso!");
+                JOptionPane.showMessageDialog(null, "Produto " + message);
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + " falhou!");
+                JOptionPane.showMessageDialog(null, "Erro");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -236,7 +236,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
-        txtProdutoValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        txtProdutoValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Quantidade:");
@@ -391,7 +391,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                     + "fabricacao = '" + txtProdutoFab.getText() + "',"
                     + "qtd = " + txtProdutoQtd.getText() + ","
                     + "valor = " + txtProdutoValor.getText() + " WHERE id = " + txtProdutoID.getText();
-            executarQuery(query, "Atualizado");
+            executarQuery(query, "atualizado");
         }
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
@@ -404,7 +404,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                     JOptionPane.ERROR_MESSAGE);
         } else {
             String query = "DELETE FROM produtos WHERE id = " + txtProdutoID.getText();
-            executarQuery(query, "Deletado");
+            executarQuery(query, "deletado");
             txtProdutoID.setText("");
             txtProdutoNome.setText("");
             txtProdutoDesc.setText("");
@@ -429,7 +429,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                     "Os campos não podem ficar em branco.",
                     "ERRO",
                     JOptionPane.ERROR_MESSAGE);
-        } else {
+        } else  {
             String query = "INSERT INTO produtos(nome,descricao,marca,serie,fabricacao, qtd, valor) VALUES ('"
                     + txtProdutoNome.getText() + "',"
                     + "'" + txtProdutoDesc.getText() + "',"
@@ -438,7 +438,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                     + "'" + txtProdutoFab.getText() + "',"
                     + txtProdutoQtd.getText() + ","
                     + txtProdutoValor.getText() + ")";
-            executarQuery(query, "Inserido");
+            executarQuery(query, "cadastrado");
         }
     }//GEN-LAST:event_buttonInserirActionPerformed
 
