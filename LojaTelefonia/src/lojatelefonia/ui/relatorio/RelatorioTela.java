@@ -84,7 +84,15 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
             new String [] {
                 "ID Venda", "Valor Total", "Quantidade de Items", "Cliente"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableRelatorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableRelatorioMouseClicked(evt);
