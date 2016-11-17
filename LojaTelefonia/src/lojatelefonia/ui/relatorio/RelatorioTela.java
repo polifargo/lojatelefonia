@@ -3,7 +3,9 @@ package lojatelefonia.ui.relatorio;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -14,8 +16,13 @@ import lojatelefonia.ui.atributos.Relatorio;
 
 public class RelatorioTela extends javax.swing.JInternalFrame {
 
+    SimpleDateFormat formatarDate = new SimpleDateFormat("dd/MM/yyyy");
+    GregorianCalendar gc = new GregorianCalendar();
+
     public RelatorioTela() {
         initComponents();
+        String data = formatarDate.format(gc.getTime());
+        dataRelatorio.setText(data);
         mostrarListaRelatorio();
     }
 
@@ -24,7 +31,8 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
         Connection connection = null;
         connection = ConnectionUtils.getConnection();
 
-        String query = "SELECT * FROM relatorio";
+        String query = "SELECT * FROM RELATORIO "
+                + "WHERE DATA_VENDA = '" + dataRelatorio.getText() + "'";
         Statement st;
         ResultSet rs;
 
@@ -34,7 +42,7 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
             Relatorio relatorio;
             while (rs.next()) {
                 relatorio = new Relatorio(rs.getInt("id_venda"), rs.getDouble("valor_total"), rs.getInt("qtd_items"),
-                        rs.getString("cliente"));
+                        rs.getString("cliente"), rs.getString("data_venda"));
                 listaRelatorio.add(relatorio);
             }
         } catch (Exception e) {
@@ -47,12 +55,13 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
     public void mostrarListaRelatorio() {
         ArrayList<Relatorio> lista = getListaRelatorio();
         DefaultTableModel model = (DefaultTableModel) jTableRelatorio.getModel();
-        Object[] row = new Object[4];
+        Object[] row = new Object[5];
         for (int i = 0; i < lista.size(); i++) {
             row[0] = lista.get(i).getIdvenda();
             row[1] = lista.get(i).getValorfinal();
             row[2] = lista.get(i).getQtd();
             row[3] = lista.get(i).getCliente();
+            row[4] = lista.get(i).getDataVenda();
             model.addRow(row);
         }
     }
@@ -69,6 +78,9 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
+        buttonVoltar = new javax.swing.JButton();
+        buttonAvancar = new javax.swing.JButton();
+        dataRelatorio = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -82,11 +94,11 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID Venda", "Valor Total", "Quantidade de Items", "Cliente"
+                "ID Venda", "Valor Total", "Quantidade de Items", "Cliente", "Data da Venda"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -134,25 +146,46 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonVoltar.setText("<");
+        buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVoltarActionPerformed(evt);
+            }
+        });
+
+        buttonAvancar.setText(">");
+        buttonAvancar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAvancarActionPerformed(evt);
+            }
+        });
+
+        dataRelatorio.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRelatorioID, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonVoltar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dataRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(buttonAvancar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonDelete)))
                 .addContainerGap())
         );
@@ -168,9 +201,15 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(dataRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonAvancar, buttonVoltar, dataRelatorio});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -206,6 +245,26 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
+    private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
+        gc.add(gc.DAY_OF_MONTH, -1);
+        String data = formatarDate.format(gc.getTime());
+        dataRelatorio.setText(data);
+        //refresh
+        DefaultTableModel model = (DefaultTableModel) jTableRelatorio.getModel();
+        model.setRowCount(0);
+        mostrarListaRelatorio();
+    }//GEN-LAST:event_buttonVoltarActionPerformed
+
+    private void buttonAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAvancarActionPerformed
+        gc.add(gc.DAY_OF_MONTH, 1);
+        String data = formatarDate.format(gc.getTime());
+        dataRelatorio.setText(data);
+        //refreshs
+        DefaultTableModel model = (DefaultTableModel) jTableRelatorio.getModel();
+        model.setRowCount(0);
+        mostrarListaRelatorio();
+    }//GEN-LAST:event_buttonAvancarActionPerformed
+
     public void executarQuery(String query, String message) {
         Connection connection = null;
         connection = ConnectionUtils.getConnection();
@@ -228,7 +287,10 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAvancar;
     private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonVoltar;
+    private javax.swing.JLabel dataRelatorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
