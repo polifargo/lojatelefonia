@@ -6,12 +6,18 @@ public class Relatorio {
     private double valorfinal;
     private int qtd;
     private String cliente;
+    private String dataVenda;
 
-    public Relatorio(int idvenda, double valorfinal, int qtd, String cliente) {
+    public Relatorio(int idvenda, double valorfinal, int qtd, String cliente, String dataVenda) {
         this.idvenda = idvenda;
         this.valorfinal = valorfinal;
         this.qtd = qtd;
         this.cliente = cliente;
+        this.dataVenda = dataVenda;
+    }
+
+    public String getDataVenda() {
+        return dataVenda;
     }
 
     public int getIdvenda() {

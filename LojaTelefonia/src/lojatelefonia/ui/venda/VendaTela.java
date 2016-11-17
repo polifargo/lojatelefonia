@@ -3,7 +3,10 @@ package lojatelefonia.ui.venda;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -513,15 +516,18 @@ public class VendaTela extends javax.swing.JInternalFrame {
 
     //Botao realizar vender
     private void buttonVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVenderActionPerformed
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
         if (jTableVenda.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(null, "O carrinho esta vazio.", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else if (txtClienteFinal.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Cliente nao selecionado", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
-            String query2 = "INSERT INTO relatorio(valor_total, cliente, qtd_items) VALUES ("
+            String query2 = "INSERT INTO relatorio(valor_total, cliente, qtd_items, data_venda) VALUES ("
                     + Double.parseDouble(txtValorFinal.getText()) + ",'"
                     + txtClienteFinal.getText() + "',"
-                    + getQtd() + ")";
+                    + getQtd() + ",'" 
+                    + dateFormat.format(date) + "')";
             executarQueryNOMSG(query2, null);
             JOptionPane.showMessageDialog(this, "Compra realizada com sucesso!");
             txtClienteFinal.setText("");
