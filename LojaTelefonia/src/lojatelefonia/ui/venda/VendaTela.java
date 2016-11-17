@@ -485,8 +485,13 @@ public class VendaTela extends javax.swing.JInternalFrame {
                         + "'" + model.getValueAt(i, 1).toString() + "',"
                         + txtProdutoQtd.getText() + ")";
                 executarQueryVenda(query, "Adicionado");
+                String query3 = "INSERT INTO inforelatorio(produto, qtd_items, valor_total) VALUES ('"
+                        + model.getValueAt(i, 1).toString() + "',"
+                        + txtProdutoQtd.getText() + ","
+                        + Double.parseDouble(model.getValueAt(i, 7).toString()) + ")";
+                executarQueryInfo(query3);
                 String query2 = "UPDATE produtos SET qtd = " + model.getValueAt(i, 6) + -Integer.parseInt(txtProdutoQtd.getText()) + "WHERE id = " + txtProdutoID.getText();
-                executarQuery(query2, "Adicionado");
+                executarQuery(query2, null);
             }
             txtValorFinal.setText(Double.toString(getSum()));
         }
@@ -508,7 +513,7 @@ public class VendaTela extends javax.swing.JInternalFrame {
             executarQuery(query3, null);
             if (Integer.parseInt(model.getValueAt(i, 3).toString()) <= 0) {
                 String query = "DELETE FROM venda WHERE id_venda = " + txtVendaID.getText();
-                executarQueryNOMSG(query, "Produto excluido do carrinho");
+                executarQueryNOMSG(query, null);
             }
             txtValorFinal.setText(Double.toString(getSum()));
         }
@@ -526,14 +531,14 @@ public class VendaTela extends javax.swing.JInternalFrame {
             String query2 = "INSERT INTO relatorio(valor_total, cliente, qtd_items, data_venda) VALUES ("
                     + Double.parseDouble(txtValorFinal.getText()) + ",'"
                     + txtClienteFinal.getText() + "',"
-                    + getQtd() + ",'" 
+                    + getQtd() + ",'"
                     + dateFormat.format(date) + "')";
             executarQueryNOMSG(query2, null);
             JOptionPane.showMessageDialog(this, "Compra realizada com sucesso!");
             txtClienteFinal.setText("");
             txtValorFinal.setText("");
             String query = "DELETE FROM venda ";
-            executarQueryNOMSG(query, "concluida");
+            executarQueryNOMSG(query, null);
             row2.clear();
         }
     }//GEN-LAST:event_buttonVenderActionPerformed
@@ -550,7 +555,9 @@ public class VendaTela extends javax.swing.JInternalFrame {
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
         if (jTableVenda.getRowCount() > 0) {
             String query = "DELETE FROM venda";
+            String query2 = "DELETE FROM inforelatorio";
             executarQueryNOMSG(query, null);
+            executarQueryInfo(query2);
         }
         row2.clear();
     }//GEN-LAST:event_formInternalFrameClosed
@@ -771,6 +778,17 @@ public class VendaTela extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, message);
             }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void executarQueryInfo(String query) {
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
+        Statement st;
+        try {
+            st = connection.createStatement();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
