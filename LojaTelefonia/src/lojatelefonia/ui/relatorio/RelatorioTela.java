@@ -1,12 +1,12 @@
 package lojatelefonia.ui.relatorio;
 
-import static java.awt.SystemColor.desktop;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -294,6 +294,7 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
                     JOptionPane.ERROR_MESSAGE);
         } else {
             RelatorioInfoTela frame = new RelatorioInfoTela();
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         }
     }//GEN-LAST:event_buttonInfoActionPerformed
