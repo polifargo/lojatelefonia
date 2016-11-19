@@ -1,4 +1,4 @@
-package br.com.lojatelefonia.services.modelo;
+package br.com.lojatelefonia.models;
 
 public class RelatorioInfo {
 

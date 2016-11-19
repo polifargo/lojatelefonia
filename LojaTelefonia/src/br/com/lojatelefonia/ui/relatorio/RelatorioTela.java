@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import br.com.lojatelefonia.db.utils.ConnectionUtils;
-import br.com.lojatelefonia.services.modelo.Relatorio;
+import br.com.lojatelefonia.models.Relatorio;
 
 public class RelatorioTela extends javax.swing.JInternalFrame {
 
