@@ -8,13 +8,14 @@ public class Cliente {
     private String telefone;
     private String cpf;
 
-    public Cliente(int id, String nome, String nasc, String telefone, String cpf) {
+    public Cliente(Integer id, String nome, String nasc, String telefone, String cpf) {
         this.id = id;
         this.nome = nome;
         this.nasc = nasc;
         this.telefone = telefone;
         this.cpf = cpf;
     }
+    
 
     public int getId() {
         return id;
