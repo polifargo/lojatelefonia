@@ -125,7 +125,7 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
         );
 
-        buttonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/excluir.png"))); // NOI18N
+        buttonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/excluir.png"))); // NOI18N
         buttonDelete.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +139,7 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
         jLabel2.setText("ID:");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/filtroBuscar.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/filtroBuscar.png"))); // NOI18N
         jLabel1.setText("Filtro:");
 
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -148,7 +148,7 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/backwardsArrow.png"))); // NOI18N
+        buttonVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/backwardsArrow.png"))); // NOI18N
         buttonVoltar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +156,7 @@ public class RelatorioTela extends javax.swing.JInternalFrame {
             }
         });
 
-        buttonAvancar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/forwardArrow.png"))); // NOI18N
+        buttonAvancar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/forwardArrow.png"))); // NOI18N
         buttonAvancar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         buttonAvancar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

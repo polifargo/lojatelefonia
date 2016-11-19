@@ -7,7 +7,7 @@
         <Menu class="javax.swing.JMenu" name="menuClientes">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/clientes.png"/>
+              <Image iconType="3" name="/resources/image/clientes.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
@@ -15,7 +15,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemClientes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/clientes.png"/>
+                  <Image iconType="3" name="/resources/image/clientes.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gerenciar Clientes"/>
               </Properties>
@@ -28,7 +28,7 @@
         <Menu class="javax.swing.JMenu" name="menuProdutos">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/produtos.png"/>
+              <Image iconType="3" name="/resources/image/produtos.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Produto"/>
           </Properties>
@@ -36,7 +36,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemProdutos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/produtos.png"/>
+                  <Image iconType="3" name="/resources/image/produtos.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Gerenciar Produtos"/>
               </Properties>
@@ -49,7 +49,7 @@
         <Menu class="javax.swing.JMenu" name="menuVenda">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resources/Vendas.png"/>
+              <Image iconType="3" name="/resources/image/Vendas.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Venda"/>
           </Properties>
@@ -57,7 +57,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuRealizarVenda">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/Vendas.png"/>
+                  <Image iconType="3" name="/resources/image/Vendas.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Realizar Venda"/>
               </Properties>
@@ -68,7 +68,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuRelatorio">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resources/relatorio.gif"/>
+                  <Image iconType="3" name="/resources/image/relatorio.gif"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Relatorio de Vendas"/>
               </Properties>

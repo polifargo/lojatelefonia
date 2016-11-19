@@ -75,10 +75,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktop.setName(""); // NOI18N
         desktop.setPreferredSize(new java.awt.Dimension(1600, 1000));
 
-        menuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/clientes.png"))); // NOI18N
+        menuClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/clientes.png"))); // NOI18N
         menuClientes.setText("Cliente");
 
-        menuItemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/clientes.png"))); // NOI18N
+        menuItemClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/clientes.png"))); // NOI18N
         menuItemClientes.setText("Gerenciar Clientes");
         menuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,10 +89,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         telaPrincipalMenu.add(menuClientes);
 
-        menuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/produtos.png"))); // NOI18N
+        menuProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/produtos.png"))); // NOI18N
         menuProdutos.setText("Produto");
 
-        menuItemProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/produtos.png"))); // NOI18N
+        menuItemProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/produtos.png"))); // NOI18N
         menuItemProdutos.setText("Gerenciar Produtos");
         menuItemProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,10 +103,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         telaPrincipalMenu.add(menuProdutos);
 
-        menuVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Vendas.png"))); // NOI18N
+        menuVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/Vendas.png"))); // NOI18N
         menuVenda.setText("Venda");
 
-        menuRealizarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Vendas.png"))); // NOI18N
+        menuRealizarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/Vendas.png"))); // NOI18N
         menuRealizarVenda.setText("Realizar Venda");
         menuRealizarVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +115,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuVenda.add(menuRealizarVenda);
 
-        menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/relatorio.gif"))); // NOI18N
+        menuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/image/relatorio.gif"))); // NOI18N
         menuRelatorio.setText("Relatorio de Vendas");
         menuRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -171,7 +171,7 @@
     <Component class="javax.swing.JButton" name="buttonDelete">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/excluir.png"/>
+          <Image iconType="3" name="/resources/image/excluir.png"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -206,7 +206,7 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/filtroBuscar.png"/>
+          <Image iconType="3" name="/resources/image/filtroBuscar.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Filtro:"/>
       </Properties>
@@ -219,7 +219,7 @@
     <Component class="javax.swing.JButton" name="buttonVoltar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/backwardsArrow.png"/>
+          <Image iconType="3" name="/resources/image/backwardsArrow.png"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -234,7 +234,7 @@
     <Component class="javax.swing.JButton" name="buttonAvancar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/forwardArrow.png"/>
+          <Image iconType="3" name="/resources/image/forwardArrow.png"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
