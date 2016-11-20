@@ -11,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import br.com.lojatelefonia.db.utils.ConnectionUtils;
-import br.com.lojatelefonia.services.modelo.RelatorioInfo;
+import br.com.lojatelefonia.modelo.RelatorioInfo;
 
 /**
  *

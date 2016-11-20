@@ -14,9 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import br.com.lojatelefonia.db.utils.ConnectionUtils;
-import br.com.lojatelefonia.services.modelo.Cliente;
-import br.com.lojatelefonia.services.modelo.ModeloVenda;
-import br.com.lojatelefonia.services.modelo.Produto;
+import br.com.lojatelefonia.modelo.Cliente;
+import br.com.lojatelefonia.modelo.ModeloVenda;
+import br.com.lojatelefonia.modelo.Produto;
 
 public class VendaTela extends javax.swing.JInternalFrame {
 

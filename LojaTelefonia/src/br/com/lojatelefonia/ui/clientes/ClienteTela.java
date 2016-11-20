@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import br.com.lojatelefonia.db.utils.ConnectionUtils;
-import br.com.lojatelefonia.services.modelo.Cliente;
+import br.com.lojatelefonia.modelo.Cliente;
 
 public class ClienteTela extends javax.swing.JInternalFrame {
 

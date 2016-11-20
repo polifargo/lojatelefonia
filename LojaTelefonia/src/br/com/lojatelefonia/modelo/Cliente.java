@@ -1,4 +1,4 @@
-package br.com.lojatelefonia.services.modelo;
+package br.com.lojatelefonia.modelo;
 
 public class Cliente {
 
