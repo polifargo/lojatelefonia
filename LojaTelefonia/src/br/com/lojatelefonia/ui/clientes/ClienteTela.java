@@ -10,7 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import br.com.lojatelefonia.db.utils.ConnectionUtils;
+import br.com.lojatelefonia.exceptions.ClienteException;
 import br.com.lojatelefonia.models.Cliente;
+import br.com.lojatelefonia.services.ServiceCliente;
 
 public class ClienteTela extends javax.swing.JInternalFrame {
 
@@ -385,20 +387,15 @@ public class ClienteTela extends javax.swing.JInternalFrame {
 
     //Inserir item na tabela
     private void buttonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInserirActionPerformed
-        if (txtClienteNome.getText().equals("") || txtClienteNasc.getText().equals("")
-                || txtClienteTel.getText().equals("") || fTxtClienteCPF.getText().equals("")) {
-            JOptionPane.showMessageDialog(this,
-                    "Os campos não podem ficar em branco.",
-                    "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            String query = "INSERT INTO clientes(nome,nascimento,telefone,cpf) VALUES ('"
-                    + txtClienteNome.getText() + "',"
-                    + "'" + txtClienteNasc.getText() + "',"
-                    + "'" + txtClienteTel.getText() + "',"
-                    + "'" + fTxtClienteCPF.getText()
-                    + "')";
-            executarQuery(query, "cadastrado");
+        String nome = txtClienteNome.getText();
+        String nasc = txtClienteNasc.getText();
+        String tel = txtClienteTel.getText();
+        String cpf = fTxtClienteCPF.getText();
+        try {
+            ServiceCliente.cadastrarCliente(nome, nasc, tel, cpf);
+            mostrarListaCliente();
+        } catch (Exception e) {
+
         }
         txtClienteID.setText("");
         txtClienteNome.setText("");
