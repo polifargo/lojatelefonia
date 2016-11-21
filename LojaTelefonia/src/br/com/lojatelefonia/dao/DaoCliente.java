@@ -6,9 +6,13 @@
 package br.com.lojatelefonia.dao;
 
 import br.com.lojatelefonia.db.utils.ConnectionUtils;
+import br.com.lojatelefonia.models.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -106,5 +110,29 @@ public class DaoCliente {
                 connection.close();
             }
         }
+    }
+    
+    public static ArrayList<Cliente> getListaClientes() {
+        ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+        Connection connection = null;
+        connection = ConnectionUtils.getConnection();
+
+        String query = "SELECT * FROM clientes";
+        Statement st;
+        ResultSet rs;
+
+        try {
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+            Cliente cliente;
+            while (rs.next()) {
+                cliente = new Cliente(rs.getInt("id"), rs.getString("nome"), rs.getString("nascimento"),
+                        rs.getString("telefone"), rs.getString("cpf"));
+                listaClientes.add(cliente);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaClientes;
     }
 }

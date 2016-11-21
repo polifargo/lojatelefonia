@@ -1,16 +1,12 @@
 package br.com.lojatelefonia.ui.clientes;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import br.com.lojatelefonia.dao.DaoCliente;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import br.com.lojatelefonia.db.utils.ConnectionUtils;
-import br.com.lojatelefonia.exceptions.ClienteException;
 import br.com.lojatelefonia.models.Cliente;
 import br.com.lojatelefonia.services.ServiceCliente;
 
@@ -21,39 +17,14 @@ public class ClienteTela extends javax.swing.JInternalFrame {
      */
     public ClienteTela() {
         initComponents();
-        mostrarListaCliente();
-    }
-
-    //Testar conexao com o banco de dados
-    //Pegar tabela de clientes
-    public ArrayList<Cliente> getListaClientes() {
-        ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
-        Connection connection = null;
-        connection = ConnectionUtils.getConnection();
-
-        String query = "SELECT * FROM clientes";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = connection.createStatement();
-            rs = st.executeQuery(query);
-            Cliente cliente;
-            while (rs.next()) {
-                cliente = new Cliente(rs.getInt("id"), rs.getString("nome"), rs.getString("nascimento"),
-                        rs.getString("telefone"), rs.getString("cpf"));
-                listaClientes.add(cliente);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaClientes;
+        ListarClientes();
     }
 
     //Mostrar dados na tabela
-    public void mostrarListaCliente() {
-        ArrayList<Cliente> lista = getListaClientes();
+    public void ListarClientes() {
+        ArrayList<Cliente> lista = DaoCliente.getListaClientes();
         DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();
+        model.setRowCount(0);
         Object[] row = new Object[5];
         for (int i = 0; i < lista.size(); i++) {
             row[0] = lista.get(i).getId();
@@ -61,32 +32,10 @@ public class ClienteTela extends javax.swing.JInternalFrame {
             row[2] = lista.get(i).getNasc();
             row[3] = lista.get(i).getTelefone();
             row[4] = lista.get(i).getCpf();
-
             model.addRow(row);
         }
     }
 
-    // EXECUTAR SQL QUERY
-    public void executarQuery(String query, String message) {
-        Connection connection = null;
-        connection = ConnectionUtils.getConnection();
-        Statement st;
-        try {
-            st = connection.createStatement();
-            if (st.executeUpdate(query) == 1) {
-                //refresh
-                DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();
-                model.setRowCount(0);
-                mostrarListaCliente();
-
-                JOptionPane.showMessageDialog(null, "Cliente " + message);
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -353,21 +302,24 @@ public class ClienteTela extends javax.swing.JInternalFrame {
     //Deletar item da tabela
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         if (jTableClientes.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this,
-                    "Nenhum cliente selecionado.",
-                    "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nenhum cliente selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
+            int id = Integer.parseInt(txtClienteID.getText());
             int i = JOptionPane.showConfirmDialog(this, "Deseja deletar o cliente selecionado?");
-            if (i == JOptionPane.YES_OPTION) {
-                String query = "DELETE FROM clientes WHERE id = " + txtClienteID.getText();
-                executarQuery(query, "deletado");
-                txtClienteID.setText("");
-                txtClienteNome.setText("");
-                txtClienteNasc.setText("");
-                txtClienteTel.setText("");
-                fTxtClienteCPF.setText("");
+            try {
+                ServiceCliente.excliurCliente(id, i);
+                if (i == 0) {
+                    ListarClientes();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
             }
+            txtClienteID.setText("");
+            txtClienteNome.setText("");
+            txtClienteNasc.setText("");
+            txtClienteTel.setText("");
+            fTxtClienteCPF.setText("");
         }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
@@ -393,9 +345,10 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         String cpf = fTxtClienteCPF.getText();
         try {
             ServiceCliente.cadastrarCliente(nome, nasc, tel, cpf);
-            mostrarListaCliente();
+            ListarClientes();
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         txtClienteID.setText("");
         txtClienteNome.setText("");
@@ -407,19 +360,23 @@ public class ClienteTela extends javax.swing.JInternalFrame {
 
     //Atualizar item da tabela
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-        if (txtClienteNome.getText().equals("") || txtClienteNasc.getText().equals("")
-                || txtClienteTel.getText().equals("") || fTxtClienteCPF.getText().equals("")) {
-            JOptionPane.showMessageDialog(this,
-                    "Os campos não podem ficar em branco.",
-                    "Aviso",
-                    JOptionPane.WARNING_MESSAGE);
-        } else {
-            String query = "UPDATE clientes SET nome = '" + txtClienteNome.getText() + "',"
-                    + "nascimento = '" + txtClienteNasc.getText() + "',"
-                    + "telefone = '" + txtClienteTel.getText() + "',"
-                    + "cpf = '" + fTxtClienteCPF.getText() + "' WHERE id = " + txtClienteID.getText();
-            executarQuery(query, "atualizado");
+        int id = Integer.parseInt(txtClienteID.getText());
+        String nome = txtClienteNome.getText();
+        String nasc = txtClienteNasc.getText();
+        String tel = txtClienteTel.getText();
+        String cpf = fTxtClienteCPF.getText();
+        try {
+            ServiceCliente.atualizarCliente(id, nome, nasc, tel, cpf);
+            ListarClientes();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        txtClienteID.setText("");
+        txtClienteNome.setText("");
+        txtClienteNasc.setText("");
+        txtClienteTel.setText("");
+        fTxtClienteCPF.setText("");
     }//GEN-LAST:event_buttonUpdateActionPerformed
 
 

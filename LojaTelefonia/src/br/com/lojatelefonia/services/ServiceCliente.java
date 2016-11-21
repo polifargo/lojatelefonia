@@ -19,19 +19,9 @@ public class ServiceCliente {
     public static void cadastrarCliente(String nomeCliente, String nascCliente, String telefoneCliente, String cpfCliente)
             throws ClienteException, DataSourceException {
         //Realização de validações de negócio
-        if (nomeCliente == null || "".equals(nomeCliente)) {
-            throw new ClienteException("É necessário informar um nome de cliente");
+        if ("".equals(nomeCliente) || "  /  /    ".equals(nascCliente) || "(  )    -    ".equals(telefoneCliente) || "   .   .   -  ".equals(cpfCliente)) {
+            throw new ClienteException("Um ou mais campos estão vazios, convém preenche-los!");
         }
-        if (nascCliente == null || "".equals(nascCliente)) {
-            throw new ClienteException("É necessário informar a data de nascimento");
-        }
-        if (telefoneCliente == null || "".equals(telefoneCliente)) {
-            throw new ClienteException("É necessário informar um telefone");
-        }
-        if (cpfCliente == null || "".equals(cpfCliente)) {
-            throw new ClienteException("É necessário informar o cpf");
-        }
-
         try {
             //Realiza a chamada de inserção na fonte de dados
             DaoCliente.inserir(nomeCliente, nascCliente, telefoneCliente, cpfCliente);
@@ -47,19 +37,9 @@ public class ServiceCliente {
     public static void atualizarCliente(Integer idCliente, String nomeCliente, String nascCliente, String telefoneCliente, String cpfCliente)
             throws ClienteException, DataSourceException {
         //Realização de validações de negócio
-        if (nomeCliente == null || "".equals(nomeCliente)) {
-            throw new ClienteException("É necessário informar um nome de cliente");
+        if ("".equals(nomeCliente) || "  /  /    ".equals(nascCliente) || "(  )    -    ".equals(telefoneCliente) || "   .   .   -  ".equals(cpfCliente)) {
+            throw new ClienteException("Um ou mais campos estão vazios, convém preenche-los!");
         }
-        if (nascCliente == null || "".equals(nascCliente)) {
-            throw new ClienteException("É necessário informar a data de nascimento");
-        }
-        if (telefoneCliente == null || "".equals(telefoneCliente)) {
-            throw new ClienteException("É necessário informar um telefone");
-        }
-        if (cpfCliente == null || "".equals(cpfCliente)) {
-            throw new ClienteException("É necessário informar o cpf");
-        }
-
         try {
             //Realiza a chamada de atualização na fonte de dados
             DaoCliente.atualizar(idCliente, nomeCliente, nascCliente, telefoneCliente, cpfCliente);
