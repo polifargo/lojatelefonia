@@ -6,17 +6,17 @@ public class Produto {
     private String nome;
     private String desc;
     private String marca;
-    private String serie;
+    private String num;
     private String fab;
     private int qtd;
     private Double valor;
 
-    public Produto(int id, String nome, String desc, String marca, String serie, String fab, int qtd, Double valor) {
+    public Produto(int id, String nome, String desc, String marca, String num, String fab, int qtd, Double valor) {
         this.id = id;
         this.nome = nome;
         this.desc = desc;
         this.marca = marca;
-        this.serie = serie;
+        this.num = num;
         this.fab = fab;
         this.qtd = qtd;
         this.valor = valor;
@@ -38,8 +38,8 @@ public class Produto {
         return marca;
     }
 
-    public String getSerie() {
-        return serie;
+    public String getNum() {
+        return num;
     }
 
     public String getFab() {

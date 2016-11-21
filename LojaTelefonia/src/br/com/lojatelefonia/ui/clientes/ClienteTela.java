@@ -36,7 +36,6 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         }
     }
 
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -305,11 +304,12 @@ public class ClienteTela extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Nenhum cliente selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
             int id = Integer.parseInt(txtClienteID.getText());
-            int i = JOptionPane.showConfirmDialog(this, "Deseja deletar o cliente selecionado?");
+            int option = JOptionPane.showConfirmDialog(this, "Deseja deletar o cliente selecionado?");
             try {
-                ServiceCliente.excliurCliente(id, i);
-                if (i == 0) {
+                ServiceCliente.excliurCliente(id, option);
+                if (option == 0) {
                     ListarClientes();
+                    JOptionPane.showMessageDialog(this, "Cliente excluido");
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -346,6 +346,7 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         try {
             ServiceCliente.cadastrarCliente(nome, nasc, tel, cpf);
             ListarClientes();
+            JOptionPane.showMessageDialog(this, "Cliente cadastrado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -368,6 +369,7 @@ public class ClienteTela extends javax.swing.JInternalFrame {
         try {
             ServiceCliente.atualizarCliente(id, nome, nasc, tel, cpf);
             ListarClientes();
+            JOptionPane.showMessageDialog(this, "Cliente atualizado");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return;

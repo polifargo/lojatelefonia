@@ -16,10 +16,11 @@ import br.com.lojatelefonia.exceptions.DataSourceException;
 public class ServiceCliente {
 
     //Insere um cliente na fonte de dados
-    public static void cadastrarCliente(String nomeCliente, String nascCliente, String telefoneCliente, String cpfCliente)
-            throws ClienteException, DataSourceException {
+    public static void cadastrarCliente(String nomeCliente, String nascCliente,
+            String telefoneCliente, String cpfCliente) throws ClienteException, DataSourceException {
         //Realização de validações de negócio
-        if ("".equals(nomeCliente) || "  /  /    ".equals(nascCliente) || "(  )    -    ".equals(telefoneCliente) || "   .   .   -  ".equals(cpfCliente)) {
+        if ("".equals(nomeCliente) || "  /  /    ".equals(nascCliente)
+                || "(  )    -    ".equals(telefoneCliente) || "   .   .   -  ".equals(cpfCliente)) {
             throw new ClienteException("Um ou mais campos estão vazios, convém preenche-los!");
         }
         try {
@@ -34,10 +35,11 @@ public class ServiceCliente {
     }
 
     //Atualiza um cliente na fonte de dados
-    public static void atualizarCliente(Integer idCliente, String nomeCliente, String nascCliente, String telefoneCliente, String cpfCliente)
-            throws ClienteException, DataSourceException {
+    public static void atualizarCliente(Integer idCliente, String nomeCliente, String nascCliente,
+            String telefoneCliente, String cpfCliente) throws ClienteException, DataSourceException {
         //Realização de validações de negócio
-        if ("".equals(nomeCliente) || "  /  /    ".equals(nascCliente) || "(  )    -    ".equals(telefoneCliente) || "   .   .   -  ".equals(cpfCliente)) {
+        if ("".equals(nomeCliente) || "  /  /    ".equals(nascCliente)
+                || "(  )    -    ".equals(telefoneCliente) || "   .   .   -  ".equals(cpfCliente)) {
             throw new ClienteException("Um ou mais campos estão vazios, convém preenche-los!");
         }
         try {

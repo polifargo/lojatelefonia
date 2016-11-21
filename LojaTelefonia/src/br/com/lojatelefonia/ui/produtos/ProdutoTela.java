@@ -1,16 +1,14 @@
 package br.com.lojatelefonia.ui.produtos;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import br.com.lojatelefonia.dao.DaoProduto;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import br.com.lojatelefonia.db.utils.ConnectionUtils;
 import br.com.lojatelefonia.models.Produto;
+import br.com.lojatelefonia.services.ServiceProduto;
 
 public class ProdutoTela extends javax.swing.JInternalFrame {
 
@@ -19,73 +17,26 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
      */
     public ProdutoTela() {
         initComponents();
-        mostrarListaProduto();
-    }
-
-    //Pegar tabela de produtos
-    public ArrayList<Produto> getListaProdutos() {
-        ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
-        Connection connection = null;
-        connection = ConnectionUtils.getConnection();
-
-        String query = "SELECT * FROM produtos";
-        Statement st;
-        ResultSet rs;
-
-        try {
-            st = connection.createStatement();
-            rs = st.executeQuery(query);
-            Produto produto;
-            while (rs.next()) {
-                produto = new Produto(rs.getInt("id"), rs.getString("nome"), rs.getString("descricao"),
-                        rs.getString("marca"), rs.getString("serie"), rs.getString("fabricacao"),
-                        rs.getInt("qtd"), rs.getDouble("valor"));
-                listaProdutos.add(produto);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaProdutos;
+        ListarProdutos();
     }
 
     //Mostrar dados na tabela
-    public void mostrarListaProduto() {
-        ArrayList<Produto> lista = getListaProdutos();
+    public void ListarProdutos() {
+        ArrayList<Produto> lista = DaoProduto.getListaProdutos();
         DefaultTableModel model = (DefaultTableModel) jTableProdutos.getModel();
+        model.setRowCount(0);
         Object[] row = new Object[8];
         for (int i = 0; i < lista.size(); i++) {
             row[0] = lista.get(i).getId();
             row[1] = lista.get(i).getNome();
             row[2] = lista.get(i).getDesc();
             row[3] = lista.get(i).getMarca();
-            row[4] = lista.get(i).getSerie();
+            row[4] = lista.get(i).getNum();
             row[5] = lista.get(i).getFab();
             row[6] = lista.get(i).getQtd();
             row[7] = lista.get(i).getValor();
 
             model.addRow(row);
-        }
-    }
-
-    // EXECUTAR SQL QUERY
-    public void executarQuery(String query, String message) {
-        Connection connection = null;
-        connection = ConnectionUtils.getConnection();
-        Statement st;
-        try {
-            st = connection.createStatement();
-            if (st.executeUpdate(query) == 1) {
-                //refresh
-                DefaultTableModel model = (DefaultTableModel) jTableProdutos.getModel();
-                model.setRowCount(0);
-                mostrarListaProduto();
-
-                JOptionPane.showMessageDialog(null, "Produto " + message);
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -117,7 +68,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         buttonUpdate = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
-        txtProdutoSerie = new javax.swing.JFormattedTextField();
+        txtProdutoNum = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -131,7 +82,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nome", "Descrição", "Marca", "N Série", "Fabricação", "Estoque", "Valor"
+                "ID", "Nome", "Descrição", "Marca", "Numero", "Fabricação", "Estoque", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -174,7 +125,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(buttonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -218,7 +169,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel8.setText("Marca:");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Número Série:");
+        jLabel9.setText("Número Produto:");
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("ID:");
@@ -251,7 +202,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         jLabel13.setText("Data Fabricação:");
 
         try {
-            txtProdutoSerie.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+            txtProdutoNum.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -287,7 +238,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtProdutoNome)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtProdutoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtProdutoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -322,7 +273,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtProdutoSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProdutoNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -368,82 +319,84 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
 
     //Botao atualizar item da tabela
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
-        if (txtProdutoNome.getText().equals("")
-                || txtProdutoDesc.getText().equals("")
-                || txtProdutoMarca.getText().equals("")
-                || txtProdutoSerie.getText().equals("")
-                || txtProdutoFab.getText().equals("")
-                || txtProdutoQtd.getText().equals("")
-                || txtProdutoValor.getText().equals("")) {
-            JOptionPane.showMessageDialog(this,
-                    "Os campos não podem ficar em branco.",
-                    "Aviso",
-                    JOptionPane.WARNING_MESSAGE);
-        } else {
-            String query = "UPDATE produtos SET nome = '" + txtProdutoNome.getText() + "',"
-                    + "descricao = '" + txtProdutoDesc.getText() + "',"
-                    + "marca = '" + txtProdutoMarca.getText() + "',"
-                    + "serie = '" + txtProdutoSerie.getText() + "',"
-                    + "fabricacao = '" + txtProdutoFab.getText() + "',"
-                    + "qtd = " + txtProdutoQtd.getText() + ","
-                    + "valor = " + txtProdutoValor.getText() + " WHERE id = " + txtProdutoID.getText();
-            executarQuery(query, "atualizado");
-        }
-    }//GEN-LAST:event_buttonUpdateActionPerformed
-
-    //Botao deletar item da tabela
-    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        if (jTableProdutos.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this,
-                    "Nenhum produto selecionado.",
-                    "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            int i = JOptionPane.showConfirmDialog(this, "Deseja deletar o produto selecionado?");
-            if (i == JOptionPane.YES_OPTION) {
-                String query = "DELETE FROM produtos WHERE id = " + txtProdutoID.getText();
-                executarQuery(query, "deletado");
-                txtProdutoID.setText("");
-                txtProdutoNome.setText("");
-                txtProdutoDesc.setText("");
-                txtProdutoMarca.setText("");
-                txtProdutoSerie.setText("");
-                txtProdutoFab.setText("");
-                txtProdutoQtd.setText("");
-                txtProdutoValor.setText("");
-            }
-        }
-    }//GEN-LAST:event_buttonDeleteActionPerformed
-
-    //Botao inserir item da tablea
-    private void buttonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInserirActionPerformed
-        if (txtProdutoNome.getText().equals("")
-                || txtProdutoDesc.getText().equals("")
-                || txtProdutoMarca.getText().equals("")
-                || txtProdutoSerie.getText().equals("")
-                || txtProdutoFab.getText().equals("")
-                || txtProdutoQtd.getText().equals("")
-                || txtProdutoValor.getText().equals("")) {
-            JOptionPane.showMessageDialog(this,
-                    "Os campos não podem ficar em branco.",
-                    "ERRO",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            String query = "INSERT INTO produtos(nome,descricao,marca,serie,fabricacao, qtd, valor) VALUES ('"
-                    + txtProdutoNome.getText() + "',"
-                    + "'" + txtProdutoDesc.getText() + "',"
-                    + "'" + txtProdutoMarca.getText() + "',"
-                    + "'" + txtProdutoSerie.getText() + "',"
-                    + "'" + txtProdutoFab.getText() + "',"
-                    + txtProdutoQtd.getText() + ","
-                    + txtProdutoValor.getText() + ")";
-            executarQuery(query, "cadastrado");
+        int produtoId = Integer.parseInt(txtProdutoID.getText());
+        String produtoNome = txtProdutoNome.getText();
+        String produtoDesc = txtProdutoDesc.getText();
+        String produtoMarca = txtProdutoMarca.getText();
+        String produtoNum = txtProdutoNum.getText();
+        String produtoFabri = txtProdutoFab.getText();
+        int produtoQtd = Integer.parseInt(txtProdutoQtd.getText());
+        double produtoValor = Double.parseDouble(txtProdutoValor.getText());
+        try {
+            ServiceProduto.atualizarProduto(produtoId, produtoNome, produtoDesc, produtoMarca,
+                    produtoNum, produtoFabri, produtoQtd, produtoValor);
+            ListarProdutos();
+            JOptionPane.showMessageDialog(this, "Produto atualizado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         txtProdutoID.setText("");
         txtProdutoNome.setText("");
         txtProdutoDesc.setText("");
         txtProdutoMarca.setText("");
-        txtProdutoSerie.setText("");
+        txtProdutoNum.setText("");
+        txtProdutoFab.setText("");
+        txtProdutoQtd.setText("");
+        txtProdutoValor.setText("");
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    //Botao deletar item da tabela
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        if (jTableProdutos.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto selecionado.", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int id = Integer.parseInt(txtProdutoID.getText());
+            int option = JOptionPane.showConfirmDialog(this, "Deseja deletar o produto selecionado?");
+            try {
+                ServiceProduto.excliurProduto(id, option);
+                if (option == 0) {
+                    ListarProdutos();
+                    JOptionPane.showMessageDialog(this, "Produto excluido");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            txtProdutoID.setText("");
+            txtProdutoNome.setText("");
+            txtProdutoDesc.setText("");
+            txtProdutoMarca.setText("");
+            txtProdutoNum.setText("");
+            txtProdutoFab.setText("");
+            txtProdutoQtd.setText("");
+            txtProdutoValor.setText("");
+        }
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    //Botao inserir item da tablea
+    private void buttonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInserirActionPerformed
+        String produtoNome = txtProdutoNome.getText();
+        String produtoDesc = txtProdutoDesc.getText();
+        String produtoMarca = txtProdutoMarca.getText();
+        String produtoNum = txtProdutoNum.getText();
+        String produtoFabri = txtProdutoFab.getText();
+        int produtoQtd = Integer.parseInt(txtProdutoQtd.getText());
+        double produtoValor = Double.parseDouble(txtProdutoValor.getText());
+        try {
+            ServiceProduto.cadastrarProduto(produtoNome, produtoDesc, produtoMarca,
+                    produtoNum, produtoFabri, produtoQtd, produtoValor);
+            ListarProdutos();
+            JOptionPane.showMessageDialog(this, "Produto cadastrado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        txtProdutoID.setText("");
+        txtProdutoNome.setText("");
+        txtProdutoDesc.setText("");
+        txtProdutoMarca.setText("");
+        txtProdutoNum.setText("");
         txtProdutoFab.setText("");
         txtProdutoQtd.setText("");
         txtProdutoValor.setText("");
@@ -457,7 +410,7 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
         txtProdutoNome.setText(model.getValueAt(i, 1).toString());
         txtProdutoDesc.setText(model.getValueAt(i, 2).toString());
         txtProdutoMarca.setText(model.getValueAt(i, 3).toString());
-        txtProdutoSerie.setText(model.getValueAt(i, 4).toString());
+        txtProdutoNum.setText(model.getValueAt(i, 4).toString());
         txtProdutoFab.setText(model.getValueAt(i, 5).toString());
         txtProdutoQtd.setText(model.getValueAt(i, 6).toString());
         txtProdutoValor.setText(model.getValueAt(i, 7).toString());
@@ -502,8 +455,8 @@ public class ProdutoTela extends javax.swing.JInternalFrame {
     private javax.swing.JLabel txtProdutoID;
     private javax.swing.JTextField txtProdutoMarca;
     private javax.swing.JTextField txtProdutoNome;
+    private javax.swing.JFormattedTextField txtProdutoNum;
     private javax.swing.JTextField txtProdutoQtd;
-    private javax.swing.JFormattedTextField txtProdutoSerie;
     private javax.swing.JFormattedTextField txtProdutoValor;
     // End of variables declaration//GEN-END:variables
 }
